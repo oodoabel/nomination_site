@@ -1,17 +1,26 @@
 "use client";
-import { candidates } from "@/actions/candidate";
+// import { candidates } from "@/actions/candidate";
 import { useEffect, useState } from "react";
 
 export default function NominationResultsPage() {
   const [names, setNames] = useState<any[]>([]);
 
-  const fetchCandidate = async () => {
-    const allCandidates = await candidates();
-    setNames(allCandidates);
-  };
+  async function fetchCandidates() {
+    try {
+      const response = await fetch("/api");
+      if (!response.ok) throw new Error("Failed to fetch");
+      const data = await response.json();
+      console.log(data);
+      setNames(data.data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching candidates:", error);
+      return { status: "error", data: null };
+    }
+  }
 
   useEffect(() => {
-    fetchCandidate();
+    fetchCandidates();
   }, []);
 
   return (

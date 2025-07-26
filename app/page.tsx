@@ -1,8 +1,11 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useState } from "react";
-import { addNomination } from "@/actions/candidate";
-import { PaystackButton } from "@/actions/candidate";
 
+const PaystackButton = dynamic(
+  () => import("react-paystack").then((mod) => mod.PaystackButton),
+  { ssr: false }
+);
 export interface Nomination {
   id: number;
   nominee: string;
@@ -45,12 +48,35 @@ export default function page() {
   const [category, setCategory] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  const [total, setTotal] = useState<number>(0);
   const [nominations, setNominations] = useState<Nomination[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [viewingProfile, setViewingProfile] = useState<NomineeProfile | null>(
     null
   );
+
+  async function submitNomination(
+    nominee: string,
+    category: string,
+    quantity: number
+  ) {
+    try {
+      const response = await fetch("/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nominee, category, quantity }),
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error submitting nomination:", error);
+      return { status: "error", message: "Submission failed" };
+    }
+  }
+
   //paystack
   const componentProps = {
     amount,
@@ -59,8 +85,9 @@ export default function page() {
     text: "Make Payment",
     onSuccess: () => {
       nominations.map((nom) => {
-        addNomination(nom.nominee, nom.category, nom.quantity);
+        submitNomination(nom.nominee, nom.category, nom.quantity);
       });
+
       setNominations;
     },
     onClose: () => alert("Wait! You need this oil, don't go!!!!"),
