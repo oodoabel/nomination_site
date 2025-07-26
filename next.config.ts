@@ -9,8 +9,10 @@ module.exports = {
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
-        "fjkks9rr-3666.uks1.devtunnels.ms",
+        "fjkks9rr-3000.ukst.devtunnels.ms",
+        "fjkks9rr-3000.uks1.devtunnels.ms",
         "nomination-site.vercel.app",
+        "https://nomination-site.vercel.app",
       ],
     },
   },
