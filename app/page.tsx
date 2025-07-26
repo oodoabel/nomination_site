@@ -1,15 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
+import { useState } from "react";
 import { addNomination } from "@/actions/candidate";
-import { useRouter } from "next/navigation";
+import { PaystackButton } from "@/actions/candidate";
 
-const PaystackButton = dynamic(
-  () => import("react-paystack").then((mod) => mod.PaystackButton),
-  { ssr: false }
-);
-
-interface Nomination {
+export interface Nomination {
   id: number;
   nominee: string;
   category: string;
@@ -58,7 +52,6 @@ export default function page() {
     null
   );
   //paystack
-  const router = useRouter();
   const componentProps = {
     amount,
     email,

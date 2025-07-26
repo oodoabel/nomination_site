@@ -1,6 +1,6 @@
 "use server";
+import dynamic from "next/dynamic";
 import { PrismaClient } from "@/generated/prisma";
-
 const prisma = new PrismaClient();
 
 export interface Candidate {
@@ -18,6 +18,11 @@ export interface Response {
   data?: any;
 }
 
+export const PaystackButton = dynamic(
+  () => import("react-paystack").then((mod) => mod.PaystackButton),
+  { ssr: false }
+);
+
 export const candidates = async () => await prisma.nomination.findMany();
 export const addNomination = async (
   nominee: string,
@@ -32,7 +37,7 @@ export const addNomination = async (
         quantity,
       },
     });
-    console.log("added");
+    alert("added");
   } catch (e: any) {
     console.log(e.message);
   }
