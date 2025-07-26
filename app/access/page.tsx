@@ -13,8 +13,8 @@ export default function NominationResultsPage() {
       console.log(data);
       setNames(data.data);
       return data;
-    } catch (error) {
-      console.error("Error fetching candidates:", error);
+    } catch (error: any) {
+      console.error("Error fetching candidates:", error.message);
       return { status: "error", data: null };
     }
   }
