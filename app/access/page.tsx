@@ -45,7 +45,7 @@ export default function NominationResultsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800">
-            {(names || []).map((candidate: any) => (
+            {names.map((candidate: any) => (
               <tr
                 key={candidate.id}
                 className="hover:bg-slate-800 transition duration-200"
