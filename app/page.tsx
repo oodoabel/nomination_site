@@ -2779,7 +2779,7 @@ export default function page() {
                     <img
                       src={viewingProfile.imageUrl}
                       alt={viewingProfile.name}
-                      className="h-64 w-64 rounded-full border-4 border-white "
+                      className="h-64 w-64 rounded-full border-4  border-white "
                     />
                   </div>
                 ) : (
