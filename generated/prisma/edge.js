@@ -143,7 +143,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -161,8 +161,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgres\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Nomination {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  nominee   String\n  category  String\n  quantity  Int\n}\n",
-  "inlineSchemaHash": "5f57f193895f2c09e88112310eccf5e2b9110ba20d77ef90636046641637c8ec",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel Nomination {\n  id        Int      @id @default(autoincrement())\n  createdAt DateTime @default(now())\n  nominee   String\n  category  String\n  quantity  Int\n}\n",
+  "inlineSchemaHash": "75b91f1acc2c7ca648f178d028f50d1b32df31aef2c25b22721821e647b4b617",
   "copyEngine": true
 }
 config.dirname = '/'
